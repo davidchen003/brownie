@@ -52,9 +52,7 @@ It's incredibly powerful and make our life much easier (comparing to what we did
 
 **SimpleStorage**
 
-- `$brownie init` initialize brownie project (the folder **needs to be empty!!**)
-
-  folders created from the initialization:
+- `$brownie init` initialize brownie project (the folder **needs to be empty!!**). Folders created from the initialization:
 
   - build (important low level info)
     - contracts (store all compiled codes)
@@ -67,4 +65,14 @@ It's incredibly powerful and make our life much easier (comparing to what we did
   - test
 
 - `$brownie compile` to compile the contract (SimpleStorage.sol) in contracts folder. Compiled contract info (e.g. "abi", "opcodes") stored in build/contracts/SimpleStorage.json
-- `$brownie run scripts/deploy.py` to run the script
+- `$brownie run scripts/deploy.py` to run the deploy script
+
+- **testing**
+  - Remix can do the test too. But writing test in smart contract development framework languages (Python, JavaScript) is better - allows more customization, control, typical CI/CD pipelines etc.
+  - tests/test_simple_storage.py, **test** at the beginning of testing scripts is **mandatory**
+  - `$brownie test` to run the testing script (no print() output from this commands)
+  - other useful commands:
+    - `$brownie test -k test_updating_storage` (only test "test_updating_storage" function)
+    - `$brownie test --pdb` (if the result is not pass, it will put us in a pythons shell for debugging)
+    - `$brownie test –s` (detailed output, including print() results)
+  - [pytest](https://docs.pytest.org/en/6.2.x/contents.html) (which Brownie test is based on)documentation has more info
