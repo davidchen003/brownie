@@ -115,9 +115,18 @@ It's incredibly powerful and make our life much easier (comparing to what we did
   `dependencies:# - <organization/repo>@<version> smartcontractkit/chainlink-brownie-contracts@1.1.1`
   `compiler: solc: remappings: - '@chainlink=smartcontractkit/chainlink-brownie-contracts@1.1.1'`
 
-- after `$brownie compile`, will see both solidity files ("AggregatorV3Interface.sol" and "@chainlink/contracts/src/v0.6/vendor/SafeMathChainlink.sol") in folder build/contracts/dependencies/smartcontractkit/chainlink-brownie-contracts@1.1.1
+- after `$brownie compile`, will see both solidity files ("AggregatorV3Interface.sol" and "SafeMathChainlink.sol") in folder build/contracts/dependencies/smartcontractkit/chainlink-brownie-contracts@1.1.1
 
 ## Importing functions from scripts
 
 - Separate `get_account()` into a separate file **helpful_scripts.py**
-- Add an ****init**.py**, so FundMe.py can import functions **helpful_scripts.py**
+- Add an \***\*init**.py**, so FundMe.py can import functions **helpful_scripts.py\*\*
+
+## Contract verification (publish_source) - code **"flattening"**
+
+1. Manual way
+   - rinkeby.etherscan -> Contract tab -> Verify and Publish -> copy/paste code. But it doesn't recognize "@chainlink...", so need to copy/paste the code of "AggregatorV3Interface.sol" and "SafeMathChainlink.sol at the top.
+2. Programtic Way
+   - add a line in our .env file `export ETHERSCAN_TOKEN=my etherscan.io API Key`
+   - modify deploy_fund_me(), `fund_me=FundMe.deploy({'from':account}, publish_source=True)`
+   - deploy the contract one more time, now at our contract page (address 0x7727A40640109FF6e3927f0572120ffa2BA80F7d) on rinkeby etherscan, there is a green check mark on the Contract tab. Click, and you'll see ALL the code there.
