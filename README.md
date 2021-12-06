@@ -130,3 +130,11 @@ It's incredibly powerful and make our life much easier (comparing to what we did
    - add a line in our .env file `export ETHERSCAN_TOKEN=my etherscan.io API Key`
    - modify deploy_fund_me(), `fund_me=FundMe.deploy({'from':account}, publish_source=True)`
    - deploy the contract one more time, now at our contract page (address 0x7727A40640109FF6e3927f0572120ffa2BA80F7d) on rinkeby etherscan, there is a green check mark on the Contract tab. Click, and you'll see ALL the code there.
+
+## Mocking
+
+- deploy a fake contract (priceFeed) at local Ganache chain and interact with it as if it's real
+- Constructor Parameters
+- mock contract at: contracts/test/MockV3Aggregator.sol, this has all the same functions as real price feed contract
+- for more info, see [ChainlinkMix](https://github.com/smartcontractkit/chainlink-mix)
+- `brownie run scripts/deploy_FM.py` deploy contract to local Ganache Mock
