@@ -105,3 +105,19 @@ It's incredibly powerful and make our life much easier (comparing to what we did
     - `>>>transaction = simple_storage.store(20, {"from": account})`
     - `>>>simple_storage.retrieve()` # 20
   - brownie shell is also a python shell, so we can run python code there, e.g. print('hello')
+
+# FundMe
+
+## Dependency / remapping
+
+- Brownie doesn't recognize the npm download "import @chainlink/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol; But can for github download, so specify in brownie-config.yaml:
+
+  `dependencies:# - <organization/repo>@<version> smartcontractkit/chainlink-brownie-contracts@1.1.1`
+  `compiler: solc: remappings: - '@chainlink=smartcontractkit/chainlink-brownie-contracts@1.1.1'`
+
+- after `$brownie compile`, will see both solidity files ("AggregatorV3Interface.sol" and "@chainlink/contracts/src/v0.6/vendor/SafeMathChainlink.sol") in folder build/contracts/dependencies/smartcontractkit/chainlink-brownie-contracts@1.1.1
+
+## Importing functions from scripts
+
+- Separate `get_account()` into a separate file **helpful_scripts.py**
+- Add an ****init**.py**, so FundMe.py can import functions **helpful_scripts.py**
