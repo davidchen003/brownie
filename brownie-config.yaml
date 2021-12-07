@@ -20,3 +20,5 @@ networks:
     # 'Verify: True' means to publish the source code to the network
   development:
     verify: False
+  ganache-local:
+    verify: False

@@ -138,3 +138,12 @@ It's incredibly powerful and make our life much easier (comparing to what we did
 - mock contract at: contracts/test/MockV3Aggregator.sol, this has all the same functions as real price feed contract
 - for more info, see [ChainlinkMix](https://github.com/smartcontractkit/chainlink-mix)
 - `brownie run scripts/deploy_FM.py` deploy contract to local Ganache Mock
+
+## Add Ganache network to Brownie Ethereum
+
+- `$brownie networks add Ethereum ganache-local host=http://127.0.0.1:8545 chainid=1337`
+- check the result `brownie networks list`, will see ganache-local under Ethereum section
+- update `if network.show_active() != "development":` to `if network.show_active() != LOCAL_BLOCKCHAIN_ENVIRONMENTS` (which is ["development", "ganache-local"])
+- update `if network.show_active() == "development"` to `if network.show_active() in LOCAL_BLOCKCHAIN_ENVIRONMENTS`
+- add `ganache-local: verify:False` to config file
+- `$brownie run scripts/deploy_FM.py --network ganache-local` now brownie can keep track of deployments to Ganace in build/contracts/developments/1337 folder
