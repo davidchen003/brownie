@@ -153,3 +153,12 @@ It's incredibly powerful and make our life much easier (comparing to what we did
 
 - `$brownie run scripts/fund_and_withdraw.py --network ganache-local`
 - my resulting entry fee is only 2500000 (ten zeros less!!)
+
+## Testing
+
+- `test_fund_me.py` in tests folder
+- `$pip install pytest`
+- `$brownie test` when no --network specified, default is development
+- `brownie test -k test_only_owner_can_withdraw`
+
+## mainnet forking

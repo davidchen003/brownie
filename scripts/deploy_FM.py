@@ -26,6 +26,7 @@ def deploy_fund_me():
         # .get("verify") makes our life easier (than ["verify"]) if we forget to add "verify" in brownie-config.yaml
     )
     print(f"Contract deployed to {fund_me.address}")
+    return fund_me
 
 
 def main():
