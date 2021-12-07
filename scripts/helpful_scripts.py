@@ -4,7 +4,7 @@ from web3 import Web3
 LOCAL_BLOCKCHAIN_ENVIRONMENTS = ["development", "ganache-local"]
 
 DECIMALS = 8
-STARTING_PRICE = 2000
+STARTING_PRICE = 200000000000
 
 
 def get_account():
@@ -22,7 +22,5 @@ def deploy_mocks():
     # deploy the mock contract ockV3Aggregator in contracts/test/
     # 18 as decimal, 2000 ETH as initial value
     if len(MockV3Aggregator) <= 0:  # if there is not another mock already deployed
-        MockV3Aggregator.deploy(
-            DECIMALS, Web3.toWei(STARTING_PRICE, "ether"), {"from": get_account()}
-        )
+        MockV3Aggregator.deploy(DECIMALS, STARTING_PRICE, {"from": get_account()})
     print("Mocks deployed")

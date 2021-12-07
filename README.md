@@ -146,4 +146,10 @@ It's incredibly powerful and make our life much easier (comparing to what we did
 - update `if network.show_active() != "development":` to `if network.show_active() != LOCAL_BLOCKCHAIN_ENVIRONMENTS` (which is ["development", "ganache-local"])
 - update `if network.show_active() == "development"` to `if network.show_active() in LOCAL_BLOCKCHAIN_ENVIRONMENTS`
 - add `ganache-local: verify:False` to config file
-- `$brownie run scripts/deploy_FM.py --network ganache-local` now brownie can keep track of deployments to Ganace in build/contracts/developments/1337 folder
+- `$brownie run scripts/deploy_FM.py --network ganache-local` (**need to start Ganache and keep it running first for this deployment**)
+- now brownie can keep track of deployments to Ganace in build/contracts/developments/1337 folder. But if you close ganache, the records there will be lost, hence you can't interact with them anymore (so delete the 1337 folder and the 1337 section in map.json file)
+
+## Interact with the deployed contract
+
+- `$brownie run scripts/fund_and_withdraw.py --network ganache-local`
+- my resulting entry fee is only 2500000 (ten zeros less!!)
