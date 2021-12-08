@@ -69,6 +69,8 @@ It's incredibly powerful and make our life much easier (comparing to what we did
 - `>>>brownie compile` to compile the contract (SimpleStorage.sol) in contracts folder. Compiled contract info (e.g. "abi", "opcodes") stored in build/contracts/SimpleStorage.json
 - `>>>brownie run scripts/deploy.py` to run the deploy script
 
+- **commit 3.**
+
 ## Testing
 
 - Remix can do the test too. But writing test in smart contract development framework languages (Python, JavaScript) is better - allows more customization, control, typical CI/CD pipelines etc.
@@ -80,6 +82,8 @@ It's incredibly powerful and make our life much easier (comparing to what we did
   - `>>>brownie test –s` (detailed output, including print() results)
 - [pytest](https://docs.pytest.org/en/6.2.x/contents.html) (which Brownie test is based on)documentation has more info
 
+- **commit 4.**
+
 ## Networks
 
 - Brownie is prepackaged a list of networks that it is compatible with.
@@ -90,6 +94,8 @@ It's incredibly powerful and make our life much easier (comparing to what we did
 ## Interacting with deployed contract
 
 - `>>>brownie run scripts/read_value.py --network rinkeby`
+
+- **commit 5.**
 
 - **brownie console**
   - for ad hoc tasks, we can use the brownie console to interact with the contracts
@@ -122,6 +128,8 @@ It's incredibly powerful and make our life much easier (comparing to what we did
 - Separate `get_account()` into a separate file **helpful_scripts.py**
 - Add an \***\*init**.py**, so FundMe.py can import functions **helpful_scripts.py\*\*
 
+- **commit 6.**
+
 ## Contract verification (publish_source) - code **"flattening"**
 
 1. Manual way
@@ -131,6 +139,8 @@ It's incredibly powerful and make our life much easier (comparing to what we did
    - modify deploy_fund_me(), `fund_me=FundMe.deploy({'from':account}, publish_source=True)`
    - deploy the contract one more time, now at our contract page (address 0x7727A40640109FF6e3927f0572120ffa2BA80F7d) on rinkeby etherscan, there is a green check mark on the Contract tab. Click, and you'll see ALL the code there.
 
+- **commit 7.**
+
 ## Mocking
 
 - deploy a fake contract (priceFeed) at local Ganache chain and interact with it as if it's real
@@ -138,6 +148,8 @@ It's incredibly powerful and make our life much easier (comparing to what we did
 - mock contract at: contracts/test/MockV3Aggregator.sol, this has all the same functions as real price feed contract
 - for more info, see [ChainlinkMix](https://github.com/smartcontractkit/chainlink-mix)
 - `brownie run scripts/deploy_FM.py` deploy contract to local Ganache Mock
+
+- **commit 8.**
 
 ## Add Ganache network to Brownie Ethereum
 
@@ -149,10 +161,14 @@ It's incredibly powerful and make our life much easier (comparing to what we did
 - `$brownie run scripts/deploy_FM.py --network ganache-local` (**need to start Ganache and keep it running first for this deployment**)
 - now brownie can keep track of deployments to Ganace in build/contracts/developments/1337 folder. But if you close ganache, the records there will be lost, hence you can't interact with them anymore (so delete the 1337 folder and the 1337 section in map.json file)
 
+- **commit 9.**
+
 ## Interact with the deployed contract
 
 - `$brownie run scripts/fund_and_withdraw.py --network ganache-local`
 - my resulting entry fee is only 2500000 (ten zeros less!!)
+
+- **commit 10.**
 
 ## Testing
 
@@ -161,4 +177,16 @@ It's incredibly powerful and make our life much easier (comparing to what we did
 - `$brownie test` when no --network specified, default is development
 - `brownie test -k test_only_owner_can_withdraw`
 
+- **commit 11.**
+
 ## mainnet forking
+
+- copy/fork the blockchain (mainnet or testnet) to local computer to do some simulations - testing our contract, interacting with all the contracts deployed in the blockchain.
+- add mainnet-fork-dev in brownie-config.yaml (Mainnet ETH/USA price feed address from [here](https://docs.chain.link/docs/ethereum-addresses/)
+- add `FORKED_LOCAL_ENVIRONMENTS` in scripts
+- Brownie's own forking mechanism doesn't come with its own account(s). We need to create a custom mainnet fork (from Alchemy instead of infura, which is problematic) `$brownie networks add development mainnet-fork-dev cmd=ganache-cli host=http://127.0.0.1 fork=myAlchemyProjectHTTPSaddress accounts=10 mnemonic=brownie port=8545` (we'll see the mainnet-for-dev network added to the Development section `brownie networks list`)
+- `$brownie run scripts/deploy_FM.py --network mainnet-fork-dev`
+- test passed `$ brownie test --network mainnet-fork-dev` (test_only_owner_can_withdraw skipped because mainnet-fork-dev is not in LOCAL_BLOCKCHAIN_ENVIRONMENTS)
+- however, if Ganache is already running in another shell/terminal, `$ brownie test --network mainnet-fork-dev` will fail: "brownie.exceptions.VirtualMachineError: revert" on test_can_fund_and_withdraw!!!. But `$ brownie test` can pass!!!
+
+- **commit 12.**
